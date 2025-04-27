@@ -10,6 +10,7 @@ public class Main {
     newList.addLast(4);
     newList.addLast(5);
     newList.insertAt(2,9); 
+    newList.printElements();
 
 
     newStack.push(0);
@@ -27,7 +28,7 @@ public class Main {
     newQueue.dequeue();
     newQueue.enqueue(5);
     newQueue.enqueue(6);
-    newQueue.printElements();
+
 
 
   }
