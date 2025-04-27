@@ -1,8 +1,9 @@
 public class Main {
   public static void main(String[] args) {
-    LinkedList newList = new LinkedList();
-    Stack newStack = new Stack();
-    Queue newQueue = new Queue();
+    LinkedList<Integer> newList = new LinkedList<>();
+    Stack<Integer> newStack = new Stack<>();
+    Queue<Integer> newQueue = new Queue<>();
+
     newList.addFirst(0);
     newList.addLast(1);
     newList.addLast(2);

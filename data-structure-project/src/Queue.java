@@ -1,35 +1,36 @@
-public class Queue {
-  private static class Node {
-    int data;
-    Node next;
+public class Queue<T> {
+  private static class Node<T> {
+      T data;
+      Node<T> next;
 
-    //constructor for Node
-    public Node(int data) {
-      this.data = data;
-      this.next = null;
-    }
+      //constructor for Node
+      public Node(T data) {
+          this.data = data;
+          this.next = null;
+      }
   }
 
-  Node head;
-  int size = 0;
+  private Node<T> head;
+  private int size;
 
   public Queue() {
-    head = null;
-    size = 0;
+      head = null;
+      size = 0;
   }
 
   public boolean isEmpty() {
     if (head == null) {
       return true;
-    } else
+    } 
+    else
       return false;
   }
 
-  public void enqueue(int data){
-    Node newNode = new Node(data);
-    Node current = head;
+  public void enqueue(T data) {
+    Node<T> newNode = new Node<>(data);
+    Node<T> current = head;
 
-    if(isEmpty()){
+    if (isEmpty()) {
       newNode.next = head;
       head = newNode;
       size++;
@@ -37,22 +38,24 @@ public class Queue {
     }
 
     //stops at last element
-    while(current.next != null){
+    while (current.next != null) {
       current = current.next;
     }
 
-    current.next=newNode;
+    current.next = newNode;
     size++;
   }
 
-  public void dequeue(){
-    head = head.next;
-    size--;
+  public void dequeue() {
+    if (!isEmpty()) {
+      head = head.next;
+      size--;
+    }
   }
 
-  public void printElements(){
-    Node current = head;
-    for(int i=0; i<size; i++){
+  public void printElements() {
+    Node<T> current = head;
+    for (int i = 0; i < size; i++) {
       System.out.print(current.data + " ");
       current = current.next;
     }

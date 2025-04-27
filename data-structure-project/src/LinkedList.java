@@ -1,115 +1,109 @@
-public class LinkedList {
+public class LinkedList<T> {
 
-  private static class Node {
-    int data;
-    Node next;
+    private static class Node<T> {
+        T data;
+        Node<T> next;
 
-    //constructor for Node
-    public Node(int data) {
-      this.data = data;
-      this.next = null;
+        //constructor for Node
+        public Node(T data) {
+            this.data = data;
+            this.next = null;
+        }
     }
 
-  }
 
-  //head of the linked list
-  private Node head;
-  int size = 0;
-  //constructor for LinkedList
-  public LinkedList() {
-    head = null;
-    size = 0;
+    private Node<T> head;
+    int size = 0;
 
-  }
+    public LinkedList() {
+        head = null;
+        size = 0;
+    }
 
-  public boolean isEmpty(){
+    public boolean isEmpty(){
     if(head==null){
-      return true;
+        return true;
     }
     else
       return false;
-  }
-
-  public void addFirst(int data){
-    Node newNode = new Node(data);
-    newNode.next = head;
-    head = newNode;
-    size++;
-  }
-
-  public void addLast(int data){
-    Node newNode = new Node(data);
-    Node current = head;
-
-    if(isEmpty()){
-      addFirst(data);
-      return;
     }
 
-    //stops at last element
-    while(current.next != null){
-      current = current.next;
+    public void addFirst(T data) {
+        Node<T> newNode = new Node<>(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
     }
 
-    current.next=newNode;
-    size++;
-  }
+    public void addLast(T data) {
+        Node<T> newNode = new Node<>(data);
+        Node<T> current = head;
 
-  public void insertAt(int index, int data){
-    Node newNode = new Node(data);
-    Node current = head;
+        if(isEmpty()) {
+          addFirst(data);
+          return;
+        }
 
-    for(int i=0; i<index-1; i++){
-      current = current.next;
+        //stops at last element
+        while(current.next != null) {
+            current= current.next;
+        }
+
+        current.next = newNode;
+        size++;
     }
-    newNode.next = current.next;
-    current.next = newNode;
-    size++;
-  }
 
-  public void removeFirst(){
-    head = head.next;
-    size--;
-  }
+    public void insertAt(int index, T data) {
+        Node<T> newNode = new Node<>(data);
+        Node<T> current = head;
 
-  public void removeLast(){
-    Node current = head;
-    while(current.next.next != null){
-      current = current.next;
+        for(int i = 0; i < index-1; i++) {
+            current= current.next;
+        }
+        newNode.next= current.next;
+        current.next= newNode;
+        size++;
     }
-    current.next = null;
-    size--;
-  }
 
-  public void removeAt(int index){
-    Node current = head;
-    for(int i=0; i<index-1; i++){
-      current = current.next;
+    public void removeFirst() {
+        head = head.next;
+        size--;
     }
-    current.next = current.next.next;
-    size--;
-  }
 
-  public int search(int data){
-    Node current = head;
-    for(int i=0; i<size; i++){
-      if(current.data == data){
-        return current.data;
-      }
-      current = current.next;
+    public void removeLast() {
+        Node<T> current = head;
+        while(current.next.next != null) {
+            current = current.next;
+        }
+        current.next = null;
+        size--;
     }
-    return -1; //not found
-  }
 
-  public void printElements(){
-    Node current = head;
-    for(int i=0; i<size; i++){
-      System.out.print(current.data + " ");
-      current = current.next;
+    public void removeAt(int index) {
+        Node<T> current = head;
+        for(int i = 0; i < index-1; i++) {
+            current= current.next;
+        }
+        current.next= current.next.next;
+        size--;
     }
-  }
 
+    public T search(T data) {
+        Node<T> current = head;
+        for(int i = 0; i < size; i++) {
+            if(current.data.equals(data)) {
+                return current.data;
+            }
+            current = current.next;
+        }
+        return null; // not found
+    }
 
-
-
+    public void printElements() {
+        Node<T> current = head;
+        for(int i = 0; i < size; i++) {
+            System.out.print(current.data + " ");
+            current = current.next;
+        }
+    }
 }

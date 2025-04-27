@@ -1,16 +1,16 @@
-public class Stack {
-  private static class Node {
-    int data;
-    Node next;
+public class Stack<T> {
+  private static class Node<T> {
+    T data;
+    Node<T> next;
 
     //constructor for Node
-    public Node(int data) {
+    public Node(T data) {
       this.data = data;
       this.next = null;
     }
   }
 
-  Node head;
+  Node<T> head;
   int size = 0;
 
   public Stack() {
@@ -24,8 +24,8 @@ public class Stack {
     } else
       return false;
   }
-  public void push(int data) {
-    Node newNode = new Node(data);
+  public void push(T data) {
+    Node<T> newNode = new Node<>(data);
     newNode.next = head;
     head = newNode;
     size++;
@@ -41,7 +41,7 @@ public class Stack {
   }
 
   public void printElements(){
-    Node current = head;
+    Node<T> current = head;
     for(int i=0; i<size; i++){
       System.out.print(current.data + " ");
       current = current.next;
