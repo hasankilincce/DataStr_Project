@@ -1,4 +1,4 @@
-public class Stack {
+public class Queue {
   private static class Node {
     int data;
     Node next;
@@ -13,7 +13,7 @@ public class Stack {
   Node head;
   int size = 0;
 
-  public Stack() {
+  public Queue() {
     head = null;
     size = 0;
   }
@@ -24,18 +24,28 @@ public class Stack {
     } else
       return false;
   }
-  public void push(int data) {
+
+  public void enqueue(int data){
     Node newNode = new Node(data);
-    newNode.next = head;
-    head = newNode;
+    Node current = head;
+
+    if(isEmpty()){
+      newNode.next = head;
+      head = newNode;
+      size++;
+      return;
+    }
+
+    //stops at last element
+    while(current.next != null){
+      current = current.next;
+    }
+
+    current.next=newNode;
     size++;
   }
 
-  public void pop() {
-    if(isEmpty()) {
-      System.out.println("Stack is empty, cannot pop element.");
-      return;
-    }
+  public void dequeue(){
     head = head.next;
     size--;
   }
@@ -47,7 +57,4 @@ public class Stack {
       current = current.next;
     }
   }
-
-    
-  
 }

@@ -2,6 +2,7 @@ public class Main {
   public static void main(String[] args) {
     LinkedList newList = new LinkedList();
     Stack newStack = new Stack();
+    Queue newQueue = new Queue();
     newList.addFirst(0);
     newList.addLast(1);
     newList.addLast(2);
@@ -16,7 +17,18 @@ public class Main {
     newStack.pop();
     newStack.push(3);
     newStack.push(4);
-    newStack.printElements();
+
+    newQueue.enqueue(0);
+    newQueue.enqueue(1);
+    newQueue.enqueue(2);
+    newQueue.enqueue(3);
+    newQueue.enqueue(4);
+    newQueue.dequeue();
+    newQueue.dequeue();
+    newQueue.enqueue(5);
+    newQueue.enqueue(6);
+    newQueue.printElements();
+
 
   }
 }

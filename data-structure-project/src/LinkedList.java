@@ -1,6 +1,6 @@
 public class LinkedList {
 
-  public static class Node {
+  private static class Node {
     int data;
     Node next;
 
@@ -40,6 +40,11 @@ public class LinkedList {
   public void addLast(int data){
     Node newNode = new Node(data);
     Node current = head;
+
+    if(isEmpty()){
+      addFirst(data);
+      return;
+    }
 
     //stops at last element
     while(current.next != null){
