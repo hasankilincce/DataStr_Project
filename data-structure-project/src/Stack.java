@@ -40,6 +40,14 @@ public class Stack<T> {
     size--;
   }
 
+  public T peek() {
+    if(isEmpty()) {
+      System.out.println("Stack is empty, cannot peek element.");
+      return null;
+    }
+    return head.data;
+  }
+
   public void printElements(){
     Node<T> current = head;
     for(int i=0; i<size; i++){
