@@ -1,7 +1,7 @@
 public class Main {
   public static void main(String[] args) {
     LinkedList newList = new LinkedList();
-    LinkedList newList2 = new LinkedList();
+    Stack newStack = new Stack();
     newList.addFirst(0);
     newList.addLast(1);
     newList.addLast(2);
@@ -9,7 +9,14 @@ public class Main {
     newList.addLast(4);
     newList.addLast(5);
     newList.insertAt(2,9); 
-    newList.printElements();
+
+
+    newStack.push(0);
+    newStack.push(5);
+    newStack.pop();
+    newStack.push(3);
+    newStack.push(4);
+    newStack.printElements();
 
   }
 }

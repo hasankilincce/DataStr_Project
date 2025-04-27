@@ -98,11 +98,10 @@ public class LinkedList {
 
   public void printElements(){
     Node current = head;
-    while(current.next != null){
-      System.out.println(current.data);
+    for(int i=0; i<size; i++){
+      System.out.print(current.data + " ");
       current = current.next;
     }
-    System.out.println(current.data);
   }
 
 
