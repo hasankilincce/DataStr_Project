@@ -1,6 +1,6 @@
 public class Agent {
 
-  public static int idCounter = 0; //In order to keep the id number for each agent
+  private static int idCounter = 0; //In order to keep the id number for each agent
   private int id;
 
   private int currentX, currentY;
@@ -18,7 +18,7 @@ public class Agent {
   }
 
   public void move(String direction) {
-    // Check if the move is valid and update the current position accordingly
+
     switch (direction) {
       case "UP":
         currentY++;
@@ -45,8 +45,8 @@ public class Agent {
       String[] coordinates = prevMove.split(","); // Split the coordinates into x and y
       currentX = Integer.parseInt(coordinates[0]);
       currentY = Integer.parseInt(coordinates[1]);
-      moveHistory.pop(); // Remove the last move from history
-      backTracks++; // Increment the backtrack count
+      moveHistory.pop(); 
+      backTracks++; 
     } 
     else {
       System.out.println("No moves to backtrack to.");
