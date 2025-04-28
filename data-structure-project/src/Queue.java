@@ -13,9 +13,14 @@ public class Queue<T> {
   private Node<T> head;
   private int size;
 
+
   public Queue() {
       head = null;
       size = 0;
+  }
+
+  public int size() {
+    return size;
   }
 
   public boolean isEmpty() {
@@ -50,6 +55,16 @@ public class Queue<T> {
     if (!isEmpty()) {
       head = head.next;
       size--;
+    }
+  }
+
+  public T first() {
+    if (!isEmpty()) {
+      return head.data;
+    } 
+    else {
+      System.out.println("Queue is empty, cannot peek element.");
+      return null;
     }
   }
 

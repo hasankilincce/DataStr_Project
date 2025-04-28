@@ -91,7 +91,7 @@ public class LinkedList<T> {
     public T search(T data) {
         Node<T> current = head;
         for(int i = 0; i < size; i++) {
-            if(current.data.equals(data)) {
+            if(current.data == data) {
                 return current.data;
             }
             current = current.next;

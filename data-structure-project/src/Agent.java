@@ -17,6 +17,10 @@ public class Agent {
     this.currentY = startY;
   }
 
+  public int getId() {
+    return id;
+  }
+
   public void move(String direction) {
 
     switch (direction) {
@@ -35,7 +39,8 @@ public class Agent {
       default:
         System.out.println("Invalid move direction: " + direction);
         return; 
-    }  
+    }
+    TurnManager.advanceTurn(); // Call advanceTurn() after each move  
     recordMove(currentX, currentY);
   }
 
