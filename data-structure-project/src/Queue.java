@@ -11,6 +11,7 @@ public class Queue<T> {
   }
 
   private Node<T> head;
+  private Node<T> tail;
   private int size;
 
 
@@ -33,30 +34,28 @@ public class Queue<T> {
 
   public void enqueue(T data) {
     Node<T> newNode = new Node<>(data);
-    Node<T> current = head;
-
     if (isEmpty()) {
-      newNode.next = head;
       head = newNode;
-      size++;
-      return;
+      tail = newNode;
+    } 
+    else {
+      tail.next = newNode;
+      tail = newNode;
     }
-
-    //stops at last element
-    while (current.next != null) {
-      current = current.next;
-    }
-
-    current.next = newNode;
     size++;
   }
 
   public void dequeue() {
-    if (!isEmpty()) {
+    if(!isEmpty()){
       head = head.next;
       size--;
     }
+    else{
+      tail = null;
+    }
+
   }
+  
 
   public T first() {
     if (!isEmpty()) {
