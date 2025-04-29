@@ -34,7 +34,7 @@ public class MazeTile {
       case 'T':
         return "T";
       case 'P':
-        return "*";
+        return "P";
       case 'G':
         return "X";
       default:
