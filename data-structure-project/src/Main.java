@@ -21,12 +21,12 @@ public class Main {
     System.out.println("Current Round: " + currentRound); // Print the current round
     System.out.println("Current Agent: " + currentAgent.getId()); // Print the current agent's position
 
-    MazeManager mazeManager = new MazeManager(6, 6, 5, 5, new Agent[]{agent, agent2, agent3});
+    MazeManager mazeManager = new MazeManager(18, 6, 5, 5, new Agent[]{agent, agent2, agent3});
     
     mazeManager.generateMaze(); // Generate the maze
     mazeManager.printMazeSnapshot(); // Print the maze snapshot
-    boolean validMove = mazeManager.isValidMove(2, 3, "RIGHT"); // Check if the move is valid
-    System.out.println("Is valid move: " + validMove); // Print if the move is valid
+    mazeManager.rotateCorridor(2); // Rotate the corridor at row 2
+    mazeManager.printMazeSnapshot(); // Print the maze snapshot after rotation
 
 
 

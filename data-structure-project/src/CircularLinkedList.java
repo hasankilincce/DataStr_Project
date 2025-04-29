@@ -21,6 +21,10 @@ public class CircularLinkedList<T> {
       size = 0;
   }
 
+  public int getSize() {
+    return size;
+  }
+
   public boolean isEmpty() {
     if (head == null) {
       return true;
@@ -75,48 +79,70 @@ public class CircularLinkedList<T> {
       }
   }
 
-  public void removeFirst() {
+  public T removeFirst() {
+    T temp = head.data;
       if (head == tail) {
+
         head = null;
         tail = null;
       } 
-      else {
+      else 
+      {
         head = head.next;
         tail.next = head;
       }
-      size--;
+      
+    size--;
+    return temp;
   }
 
-  public void removeLast() {
+  public T removeLast() {
+      T temp;
       if (head == tail) {
-        removeFirst();
+        temp = removeFirst();
+        return temp;
       } 
       else {
         Node<T> current = head;
         while (current.next != tail) {
             current = current.next;
         }
+        temp = tail.data;
         current.next = head;
         tail = current;
         size--;
+        return temp;
       }
   }
 
-  public void removeAt(int position) {
+  public T removeAt(int position) {
+    T temp;
       if (position == 0) {
-        removeFirst();
+        temp = removeFirst();
+        return temp;
       } 
       else if (position == size - 1) {
-        removeLast();
+        temp = removeLast();
+        return temp;
       } 
       else {
         Node<T> current = head;
         for (int i = 0; i < position - 1; i++) {
             current = current.next;
         }
+        temp = current.next.data;
         current.next = current.next.next;
         size--;
+        return temp;
       }
+  }
+
+  public T getByIndex(int index) { 
+      Node<T> current = head;
+      for (int i = 0; i < index; i++) {
+        current = current.next;
+      }
+      return current.data;
   }
 
   public void printElements() {
