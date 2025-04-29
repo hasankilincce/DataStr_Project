@@ -21,6 +21,14 @@ public class Agent {
     return id;
   }
 
+  public void setCurrentX(int x) {
+    this.currentX = x;
+  }
+
+  public void setCurrentY(int y) {
+    this.currentY = y;
+  }
+
   public void move(String direction) {
 
     switch (direction) {
@@ -50,8 +58,10 @@ public class Agent {
       String[] coordinates = prevMove.split(","); // Split the coordinates into x and y
       currentX = Integer.parseInt(coordinates[0]);
       currentY = Integer.parseInt(coordinates[1]);
-      moveHistory.pop(); 
-      backTracks++; 
+      moveHistory.pop();
+      TurnManager.advanceTurn(); // Call advanceTurn() after each move 
+      backTracks++;
+      totalMoves++; 
     } 
     else {
       System.out.println("No moves to backtrack to.");

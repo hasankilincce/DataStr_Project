@@ -29,6 +29,9 @@ public class MazeManager {
     int randomWall;
     int goalX = rand.nextInt(1, width-1); // Random goal position
     int goalY = rand.nextInt(1, height-1); // Random goal position
+
+    MazeTile tile = getTile(0, 0);
+    int spawnX, spawnY;
     
     for (int x = 0; x < width; x++) {
       for (int y = height-1; y >=0; y--) {
@@ -63,6 +66,46 @@ public class MazeManager {
     }
 
     
+  }
+
+
+
+  public boolean isValidMove(int fromX, int fromY, String direction){
+    int destinationX, destinationY;
+    switch (direction) {
+      case "UP":
+        destinationX = fromX;
+        destinationY = fromY + 1;
+        break;
+      case "DOWN":
+        destinationX = fromX;
+        destinationY = fromY - 1;
+        break;
+      case "LEFT":
+        destinationX = fromX - 1;
+        destinationY = fromY;
+        break;
+      case "RIGHT":
+        destinationX = fromX + 1;
+        destinationY = fromY;
+        break;
+      default:
+        return false; // Invalid direction
+    }
+
+    MazeTile destinationTile = getTile(destinationX, destinationY);
+    if(destinationTile.isTraversable()){
+      return true; // The move is valid if the destination tile is traversable
+    }
+    else{
+      return false; // The move is invalid if the destination tile is not traversable
+    }
+
+    
+  }
+
+  public MazeTile getTile(int x, int y) {
+    return grid[x][y];
   }
 
   public void printMazeSnapshot(){
