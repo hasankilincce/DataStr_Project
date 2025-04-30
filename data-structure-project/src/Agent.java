@@ -6,9 +6,9 @@ public class Agent {
   private int currentX, currentY;
   public Stack<String> moveHistory; //Each entry as x, y coordinates
   private boolean hasReachedGoal = false;
-  private int totalMoves = 0;
-  private int backTracks = 0;
-  private boolean hasPowerUp = false;
+  private int totalMoves;
+  private int backTracks;
+  private boolean hasPowerUp;
   private char agentSymbol = 'A'; // Symbol representing the agent in the maze
 
 
@@ -17,6 +17,10 @@ public class Agent {
     this.id = idCounter++; // Increment the idCounter for the next agent
     this.currentX = startX;
     this.currentY = startY;
+    this.hasReachedGoal = false;
+    this.totalMoves = 0;
+    this.backTracks = 0;
+    this.hasPowerUp = false;
     this.moveHistory = new Stack<>(); // Initialize the move history stack
   }
 
@@ -42,6 +46,14 @@ public class Agent {
 
   public char getAgentSymbol() {
     return agentSymbol;
+  }
+
+  public void setHasPowerUp(boolean hasPowerUp) {
+    this.hasPowerUp = hasPowerUp;
+  }
+
+  public boolean getHasPowerUp() {
+    return hasPowerUp;
   }
 
   public void move(String direction) {

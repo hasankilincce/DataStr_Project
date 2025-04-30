@@ -15,6 +15,10 @@ public class MazeTile {
     return type;
   }
 
+  public void setType(char type) {
+    this.type = type;
+  }
+
   public void setHasAgent(boolean hasAgent) {
     this.hasAgent = hasAgent;
   }

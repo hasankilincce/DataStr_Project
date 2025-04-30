@@ -183,6 +183,11 @@ public class MazeManager {
 
     oldTile.setHasAgent(false); // Remove the agent from the old tile
     newTile.setHasAgent(true); // Set the agent in the new tile
+
+    if(newTile.getType() == 'P'){
+      a.setHasPowerUp(true); // Set the agent's powerup status to true
+      newTile.setType('E'); // Change the tile type to empty after collecting the powerup
+    }
     
   }
 
