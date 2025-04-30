@@ -29,6 +29,14 @@ public class Agent {
     this.currentY = y;
   }
 
+  public int getCurrentX() {
+    return currentX;
+  }
+
+  public int getCurrentY() {
+    return currentY;
+  }
+
   public void move(String direction) {
 
     switch (direction) {

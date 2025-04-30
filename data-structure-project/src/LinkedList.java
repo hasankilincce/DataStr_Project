@@ -109,6 +109,14 @@ public class LinkedList<T> {
         return null; // not found
     }
 
+    public T getByIndex(int index) { 
+        Node<T> current = head;
+        for (int i = 0; i < index; i++) {
+          current = current.next;
+        }
+        return current.data;
+    }
+
     public void printElements() {
         Node<T> current = head;
         for(int i = 0; i < size; i++) {

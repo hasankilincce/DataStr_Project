@@ -84,6 +84,10 @@ public class MazeManager {
   }
 
   public void rotateCorridor(int rowId){
+    int size = agents.getSize();
+    Agent a;
+    int agentY, agentX;
+
     createRowCorridor(rowId); // Create a corridor in the row id
     MazeTile lastTile = rowsTiles.removeLast();
     rowsTiles.addFirst(lastTile); // Rotate the corridor by moving the last tile to the front
@@ -92,9 +96,21 @@ public class MazeManager {
       MazeTile currentTile = rowsTiles.removeFirst(); // Remove the first tile from the corridor
       grid[x][rowId] = currentTile; // Update the maze grid with the rotated tile
     }
+
+    for(int i=0; i<size; i++){
+      a = agents.getByIndex(i);
+      agentY = a.getCurrentY();
+      agentX = a.getCurrentX();
+      if(agentY == rowId && agentX < width-2){
+        a.setCurrentX(agentX+1);
+      }
+      else if(agentY == rowId && agentX == width-2){
+        a.setCurrentX(1); // Move the agent to the first column of the corridor
+      }
+    }
   }
 
-  private void createRandomRowID(int y){
+  private void createRandomRowID(int y){ 
     int randomizeRowId;
 
     randomizeRowId = rand.nextInt(1, height/2-1); // Randomize the row id for the corridor
@@ -138,8 +154,15 @@ public class MazeManager {
     return grid[x][y];
   }
 
-  public void updateAgentLocation(Agent agent, int oldX, int oldY){
-
+  public void updateAgentLocation(Agent a, int oldX, int oldY){
+    int size = agents.getSize();
+    oldX = a.getCurrentX();
+    for(int i=0; i<size; i++){
+      a = agents.getByIndex(i);
+      if(a.getCurrentY() == oldY){
+        a.setCurrentX(oldX+1);
+      }
+    }
   }
 
   public void printMazeSnapshot(){

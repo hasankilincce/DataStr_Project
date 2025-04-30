@@ -2,7 +2,7 @@ public class Main {
   public static void main(String[] args) {
     Agent agent = new Agent(0, 0);
     Agent agent2 = new Agent(1, 1);
-    Agent agent3 = new Agent(2, 2);
+    Agent agent3 = new Agent(15, 2);
 
     TurnManager turnManager = new TurnManager(new Agent[]{agent, agent2, agent3}); // ids 0, 1, 2
     
@@ -25,8 +25,16 @@ public class Main {
     
     mazeManager.generateMaze(); // Generate the maze
     mazeManager.printMazeSnapshot(); // Print the maze snapshot
+    System.out.println(agent3.getCurrentX() + " " + agent3.getCurrentY()); // Print the agent's position
+    System.out.println();
     mazeManager.rotateCorridor(2); // Rotate the corridor at row 2
     mazeManager.printMazeSnapshot(); // Print the maze snapshot after rotation
+    System.out.println(agent3.getCurrentX() + " " + agent3.getCurrentY()); // Print the agent's position after rotation
+    System.out.println();
+    mazeManager.rotateCorridor(2); // Rotate the corridor at row 2
+    mazeManager.printMazeSnapshot(); // Print the maze snapshot after rotation
+    System.out.println(agent3.getCurrentX() + " " + agent3.getCurrentY()); // Print the agent's position after rotation
+
 
 
 
