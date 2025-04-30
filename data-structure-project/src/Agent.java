@@ -4,17 +4,19 @@ public class Agent {
   private int id;
 
   private int currentX, currentY;
-  public Stack<String> moveHistory = new Stack<>(); //Each entry as x, y coordinates
+  public Stack<String> moveHistory; //Each entry as x, y coordinates
   private boolean hasReachedGoal = false;
   private int totalMoves = 0;
   private int backTracks = 0;
   private boolean hasPowerUp = false;
+  private char agentSymbol = 'A'; // Symbol representing the agent in the maze
 
   // Constructor for Agent class
   public Agent(int startX, int startY) {
     this.id = idCounter++; // Increment the idCounter for the next agent
     this.currentX = startX;
     this.currentY = startY;
+    this.moveHistory = new Stack<>(); // Initialize the move history stack
   }
 
   public int getId() {
@@ -35,6 +37,10 @@ public class Agent {
 
   public int getCurrentY() {
     return currentY;
+  }
+
+  public char getAgentSymbol() {
+    return agentSymbol;
   }
 
   public void move(String direction) {
@@ -69,7 +75,6 @@ public class Agent {
       moveHistory.pop();
       TurnManager.advanceTurn(); // Call advanceTurn() after each move 
       backTracks++;
-      totalMoves++; 
     } 
     else {
       System.out.println("No moves to backtrack to.");

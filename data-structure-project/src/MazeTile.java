@@ -15,6 +15,10 @@ public class MazeTile {
     return type;
   }
 
+  public void setHasAgent(boolean hasAgent) {
+    this.hasAgent = hasAgent;
+  }
+
   public boolean isTraversable(){
     switch (type) {
       case 'E':
@@ -30,6 +34,9 @@ public class MazeTile {
   }
 
   public String toString(){
+    if (hasAgent) {
+      return "A";
+    }
     switch (type) {
       case 'E':
         return " ";

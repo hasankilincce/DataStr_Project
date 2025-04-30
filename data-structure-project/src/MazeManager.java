@@ -19,17 +19,23 @@ public class MazeManager {
     this.height = height;
     this.trapNum = trapNum;
     this.powerUpNum = powerUpNum;
-    grid = new MazeTile[width][height];
-    agents = new LinkedList<>();
+    this.grid = new MazeTile[width][height];
+
+
+    this.agents = new LinkedList<>();
     for (Agent agent : a) {
       agents.addLast(agent);
     }
-    rotatingRows = new CircularLinkedList<>();
-    rowsTiles = new CircularLinkedList<>();
+    this.rotatingRows = new CircularLinkedList<>();
+    this.rowsTiles = new CircularLinkedList<>();
   }
 
   public void generateMaze() {
     
+    int size = agents.getSize();
+    Agent a;
+    int agentY, agentX;
+
     char type = 'E';
     int randomTrap;
     int randomPowerUp;
@@ -73,8 +79,17 @@ public class MazeManager {
       rotatingRows.addLast(height/2); //the row id is indicated by y
     }
     
-  }
+    // Set the agents in the maze at starting positions
+    for(int i=0; i<size; i++){
+      a = agents.getByIndex(i);
+      agentY = a.getCurrentY();
+      agentX = a.getCurrentX();
 
+      MazeTile startingTile = getTile(agentX, agentY);
+      startingTile.setHasAgent(true); // Set the tile to have an agent
+    }
+    
+  }
 
   private void createRowCorridor(int rowId){
     for(int x=1; x<width-1; x++){
@@ -97,10 +112,12 @@ public class MazeManager {
       grid[x][rowId] = currentTile; // Update the maze grid with the rotated tile
     }
 
+    // Rotate if any agent is in the corridor
     for(int i=0; i<size; i++){
       a = agents.getByIndex(i);
       agentY = a.getCurrentY();
       agentX = a.getCurrentX();
+
       if(agentY == rowId && agentX < width-2){
         a.setCurrentX(agentX+1);
       }
@@ -155,21 +172,28 @@ public class MazeManager {
   }
 
   public void updateAgentLocation(Agent a, int oldX, int oldY){
-    int size = agents.getSize();
-    oldX = a.getCurrentX();
-    for(int i=0; i<size; i++){
-      a = agents.getByIndex(i);
-      if(a.getCurrentY() == oldY){
-        a.setCurrentX(oldX+1);
-      }
+    MazeTile tile = getTile(oldX, oldY);
+    int agentX = a.getCurrentX();
+    int agentY = a.getCurrentY();
+
+    if(agentX==oldX && agentY==oldY){
+      tile.setHasAgent(true); 
     }
+    else{
+      tile.setHasAgent(false);
+    }
+    grid[oldX][oldY] = tile; // Update the tile in the grid
+    
   }
 
   public void printMazeSnapshot(){
+    MazeTile currentTile;
+    
     System.out.println("Y axis");
     for (int y=height-1; y>=0; y--){
       for (int x=0; x<width; x++){
-        System.out.printf("%-2s", grid[x][y].toString());
+        currentTile = getTile(x, y);
+        System.out.printf("%-2s", currentTile.toString());
         if(x==width-1 && y==0){
           System.out.print("X axis");
         }
