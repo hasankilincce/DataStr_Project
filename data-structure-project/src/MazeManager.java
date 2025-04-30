@@ -2,7 +2,7 @@ import java.util.Random;
 
 public class MazeManager {
 
-  private MazeTile[][] grid;
+  private static MazeTile[][] grid;
 
   int width, height;
   int trapNum, powerUpNum;
@@ -167,22 +167,25 @@ public class MazeManager {
     
   }
 
-  public MazeTile getTile(int x, int y) {
+  public static MazeTile getTile(int x, int y) {
     return grid[x][y];
   }
 
-  public void updateAgentLocation(Agent a, int oldX, int oldY){
-    MazeTile tile = getTile(oldX, oldY);
+  public static void updateAgentLocation(Agent a, int oldX, int oldY){
+    MazeTile oldTile = getTile(oldX, oldY);
+    MazeTile newTile;
+
     int agentX = a.getCurrentX();
     int agentY = a.getCurrentY();
 
-    if(agentX==oldX && agentY==oldY){
-      tile.setHasAgent(true); 
-    }
-    else{
-      tile.setHasAgent(false);
-    }
-    grid[oldX][oldY] = tile; // Update the tile in the grid
+    newTile = getTile(agentX, agentY); // Get the new tile where the agent is moving
+
+    oldTile.setHasAgent(false); // Remove the agent from the old tile
+    newTile.setHasAgent(true); // Set the agent in the new tile
+
+    
+    
+    
     
   }
 

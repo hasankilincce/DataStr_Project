@@ -11,6 +11,7 @@ public class Agent {
   private boolean hasPowerUp = false;
   private char agentSymbol = 'A'; // Symbol representing the agent in the maze
 
+
   // Constructor for Agent class
   public Agent(int startX, int startY) {
     this.id = idCounter++; // Increment the idCounter for the next agent
@@ -44,19 +45,27 @@ public class Agent {
   }
 
   public void move(String direction) {
+    int oldX = currentX;
+    int oldY = currentY;
+
+
 
     switch (direction) {
       case "UP":
         currentY++;
+        MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       case "DOWN":
         currentY--;
+        MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       case "LEFT":
         currentX--;
+        MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       case "RIGHT":
         currentX++;
+        MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       default:
         System.out.println("Invalid move direction: " + direction);
