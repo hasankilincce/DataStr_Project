@@ -47,23 +47,39 @@ public class Agent {
   public void move(String direction) {
     int oldX = currentX;
     int oldY = currentY;
-
+    boolean isValidMove = true;
 
 
     switch (direction) {
       case "UP":
+      if(!MazeManager.isValidMove(currentX, currentY, direction)){
+        isValidMove = false;
+        break;
+      }
         currentY++;
         MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       case "DOWN":
+      if(!MazeManager.isValidMove(currentX, currentY, direction)){
+        isValidMove = false;
+        break;
+      }
         currentY--;
         MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       case "LEFT":
+      if(!MazeManager.isValidMove(currentX, currentY, direction)){
+        isValidMove = false;
+        break;
+      }
         currentX--;
         MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
       case "RIGHT":
+      if(!MazeManager.isValidMove(currentX, currentY, direction)){
+        isValidMove = false;
+        break;
+      }
         currentX++;
         MazeManager.updateAgentLocation(this, oldX, oldY); // Update the maze with the new position
         break;
@@ -71,8 +87,15 @@ public class Agent {
         System.out.println("Invalid move direction: " + direction);
         return; 
     }
-    TurnManager.advanceTurn(); // Call advanceTurn() after each move  
-    recordMove(currentX, currentY);
+
+    if(isValidMove){
+      TurnManager.advanceTurn(); // Call advanceTurn() after each move  
+      recordMove(currentX, currentY);
+    }
+    else{
+      System.out.println("Invalid move. Agent " + id + " cannot move " + direction);
+    }
+    
   }
 
   public void backtrack(){

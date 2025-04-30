@@ -138,7 +138,7 @@ public class MazeManager {
     
   
 
-  public boolean isValidMove(int fromX, int fromY, String direction){
+  public static boolean isValidMove(int fromX, int fromY, String direction){
     int destinationX, destinationY;
     switch (direction) {
       case "UP":
@@ -172,6 +172,7 @@ public class MazeManager {
   }
 
   public static void updateAgentLocation(Agent a, int oldX, int oldY){
+
     MazeTile oldTile = getTile(oldX, oldY);
     MazeTile newTile;
 
@@ -182,10 +183,6 @@ public class MazeManager {
 
     oldTile.setHasAgent(false); // Remove the agent from the old tile
     newTile.setHasAgent(true); // Set the agent in the new tile
-
-    
-    
-    
     
   }
 
