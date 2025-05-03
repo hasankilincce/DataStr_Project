@@ -155,4 +155,16 @@ public class Agent {
     return history.toString();
     
   }
+
+  public int getMoveCount() {
+    return totalMoves;
+  }
+
+  public int getBacktrackCount() {
+    return backTracks;
+  }
+
+  public int getPowerUpCount() {
+    return hasPowerUp ? 1 : 0;
+  }
 }

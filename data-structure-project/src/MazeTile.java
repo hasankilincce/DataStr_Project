@@ -23,6 +23,10 @@ public class MazeTile {
     this.hasAgent = hasAgent;
   }
 
+  public boolean getHasAgent() {
+    return hasAgent;
+  }
+
   public boolean isTraversable(){
     switch (type) {
       case 'E':

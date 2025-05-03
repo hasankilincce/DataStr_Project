@@ -17,16 +17,20 @@ public class TurnManager {
   }
 
   public static void advanceTurn() {
-    if(!agentQueue.isEmpty()){
+    if (!agentQueue.isEmpty()) {
       Agent currentAgent = getCurrentAgent();
       agentQueue.dequeue();
       agentQueue.enqueue(currentAgent);
-      queueCounter++; // Increment queueCounter for each agent's turn
+      queueCounter++;
 
-      if(allAgentsFinished()){
-        currentRound++; // Increment when Queue is returned to original state
+      if (allAgentsFinished()) {
+        currentRound++;
+        queueCounter = 0;
       }
-    } 
+    } else {
+      currentRound++;
+      queueCounter = 0;
+    }
   }
 
   public static Agent getCurrentAgent() {
@@ -48,5 +52,36 @@ public class TurnManager {
   public void logTurnSummary(Agent a){
 
   }
-  
+
+  public int getRemainingAgents() {
+    return agentQueue.size();
+  }
+
+  public void removeAgent(Agent agent) {
+    Queue<Agent> tempQueue = new Queue<>();
+    while (!agentQueue.isEmpty()) {
+      Agent current = agentQueue.first();
+      agentQueue.dequeue();
+      if (current != agent) {
+        tempQueue.enqueue(current);
+      }
+    }
+    agentQueue = tempQueue;
+  }
+
+  public Agent[] getAllAgents() {
+    Agent[] agents = new Agent[agentQueue.size()];
+    Queue<Agent> tempQueue = new Queue<>();
+    int index = 0;
+    
+    while (!agentQueue.isEmpty()) {
+      Agent current = agentQueue.first();
+      agentQueue.dequeue();
+      agents[index++] = current;
+      tempQueue.enqueue(current);
+    }
+    
+    agentQueue = tempQueue;
+    return agents;
+  }
 }
