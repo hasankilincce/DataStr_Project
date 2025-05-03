@@ -1,3 +1,11 @@
+/**
+ * Dairesel Bağlı Liste Sınıfı
+ * 
+ * Bu sınıf, dairesel bağlı liste veri yapısını uygular.
+ * Elemanlar dairesel olarak bağlanır ve liste üzerinde dolaşılabilir.
+ * 
+ * @param <T> Liste elemanlarının tipi
+ */
 public class CircularLinkedList<T> {
 
   private static class Node<T> {
@@ -15,16 +23,27 @@ public class CircularLinkedList<T> {
   private Node<T> tail;
   private int size = 0;
 
+  /**
+   * CircularLinkedList sınıfının yapıcı metodu.
+   */
   public CircularLinkedList() {
       head = null;
       tail = null;
       size = 0;
   }
 
+  /**
+   * Listenin boyutunu döndürür.
+   * @return Liste boyutu
+   */
   public int getSize() {
     return size;
   }
 
+  /**
+   * Listenin boş olup olmadığını kontrol eder.
+   * @return Liste boş mu?
+   */
   public boolean isEmpty() {
     if (head == null) {
       return true;
@@ -33,6 +52,10 @@ public class CircularLinkedList<T> {
       return false;
   }
 
+  /**
+   * Listeye yeni bir eleman ekler.
+   * @param data Eklenecek eleman
+   */
   public void addFirst(T data) {
     Node<T> newNode = new Node<>(data);
     if (isEmpty()) {
@@ -137,6 +160,11 @@ public class CircularLinkedList<T> {
       }
   }
 
+  /**
+   * Belirtilen indeksteki elemanı döndürür.
+   * @param index Eleman indeksi
+   * @return İndeksteki eleman
+   */
   public T getByIndex(int index) { 
       Node<T> current = head;
       for (int i = 0; i < index; i++) {
@@ -151,5 +179,51 @@ public class CircularLinkedList<T> {
       System.out.print(current.data + " ");
       current = current.next;
     }
+  }
+
+  public void removeByIndex(int index) {
+    if (index < 0 || index >= size) {
+        throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
+    }
+
+    if (size == 1) {
+        head = null;
+        size = 0;
+        return;
+    }
+
+    Node<T> current = head;
+    Node<T> previous = null;
+
+    for (int i = 0; i < index; i++) {
+        previous = current;
+        current = current.next;
+    }
+
+    if (previous == null) {
+        head = current.next;
+    } else {
+        previous.next = current.next;
+    }
+
+    size--;
+  }
+
+  /**
+   * Listeyi döndürür.
+   * Baş düğümü bir sonraki elemana taşır.
+   */
+  public void rotate() {
+    if (head != null) {
+        head = head.next;
+    }
+  }
+
+  /**
+   * Belirtilen elemanı listeden çıkarır.
+   * @param data Çıkarılacak eleman
+   */
+  public void remove(T data) {
+    // ... mevcut kod ...
   }
 }

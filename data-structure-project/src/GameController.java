@@ -3,20 +3,46 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+/**
+ * Labirent Oyunu Kontrol Sınıfı
+ * 
+ * Bu sınıf, labirent oyununun ana kontrol mantığını yönetir. Oyunun başlatılması,
+ * ajanların hareketlerinin kontrolü, labirentin güncellenmesi ve oyun durumunun
+ * takibi gibi temel işlevleri içerir.
+ * 
+ * Özellikler:
+ * - Oyun başlatma ve başlangıç parametrelerini alma
+ * - Ajanların sırayla hareket etmesini sağlama
+ * - Labirentin belirli satırlarının dönmesini kontrol etme
+ * - Oyun durumunu ve istatistiklerini takip etme
+ * - Oyun olaylarını loglama
+ */
 public class GameController {
-    private MazeManager mazeManager;
-    private TurnManager turnManager;
-    private int maxTurns;
-    private boolean gameOver;
-    private StringBuilder gameLog;
-    private String logFileName;
+    private MazeManager mazeManager;      // Labirent yönetimi
+    private TurnManager turnManager;      // Tur yönetimi
+    private int maxTurns;                 // Maksimum tur sayısı
+    private boolean gameOver;             // Oyun bitiş durumu
+    private StringBuilder gameLog;        // Oyun logları
+    private String logFileName;           // Log dosyası adı
 
+    /**
+     * GameController sınıfının yapıcı metodu.
+     * Oyun başlangıç değerlerini ve log sistemini başlatır.
+     */
     public GameController() {
         this.gameLog = new StringBuilder();
         this.logFileName = "game_simulation.log";
         this.gameOver = false;
     }
 
+    /**
+     * Oyunu başlatır ve gerekli başlangıç parametrelerini kullanıcıdan alır.
+     * Parametreler:
+     * - Labirent boyutları (genişlik ve yükseklik)
+     * - Ajan sayısı
+     * - Tuzak ve güç artırıcı sıklıkları
+     * - Maksimum tur sayısı
+     */
     public void initializeGame() {
         Scanner scanner = new Scanner(System.in);
         
@@ -75,43 +101,63 @@ public class GameController {
         }
     }
 
+    /**
+     * Oyun simülasyonunu çalıştırır.
+     * Her turda:
+     * 1. Sıradaki ajanı alır
+     * 2. Ajanın hareketini işler
+     * 3. Başarılı hareketlerde labirenti günceller
+     * 4. Oyun durumunu kontrol eder
+     */
     public void runSimulation() {
-        int currentTurn = 0;
+        if (gameOver) {
+            return;
+        }
+
+        // Her turda sadece bir ajanın hareketini işle
+        Agent currentAgent = turnManager.getCurrentAgent();
+        if (currentAgent == null) {
+            gameOver = true;
+            logGameEvent("No agents remaining in the queue.");
+            return;
+        }
+
+        // Ajanın hareketini işle
+        int oldX = currentAgent.getCurrentX();
+        int oldY = currentAgent.getCurrentY();
+        processAgentAction(currentAgent);
         
-        while (!gameOver && currentTurn < maxTurns) {
-            currentTurn++;
-            logGameEvent("\nTurn " + currentTurn + " begins");
+        // Sadece ajan başarılı bir hamle yaptıysa satırı döndür ve turu ilerlet
+        if (currentAgent.getCurrentX() != oldX || currentAgent.getCurrentY() != oldY) {
+            int rotatingRow = mazeManager.getRotatingRow();
+            mazeManager.rotateCorridor(rotatingRow);
+            logGameEvent("Rotating corridor at row " + rotatingRow);
             
-            // Rotate a random corridor
-            int rowToRotate = (int) (Math.random() * mazeManager.getHeight());
-            mazeManager.rotateCorridor(rowToRotate);
-            logGameEvent("Corridor at row " + rowToRotate + " rotated");
-            
-            // Process each agent's turn
-            Agent currentAgent = turnManager.getCurrentAgent();
-            if (currentAgent == null) {
-                gameOver = true;
-                logGameEvent("No agents remaining in the queue.");
-                break;
-            }
-            
-            processAgentAction(currentAgent);
-            
-            // Check if all agents have reached the goal
-            if (turnManager.getRemainingAgents() == 0) {
-                gameOver = true;
-                logGameEvent("All agents have reached the goal!");
-            }
+            // Sırayı ilerlet
+            turnManager.advanceTurn();
         }
         
-        if (!gameOver) {
+        // Check if all agents have reached the goal
+        if (turnManager.getRemainingAgents() == 0) {
+            gameOver = true;
+            logGameEvent("All agents have reached the goal!");
+            printFinalStatistics();
+            logGameSummaryToFile();
+        }
+        
+        // Maksimum tur sayısına ulaşıldı mı kontrol et
+        if (turnManager.getCurrentRound() >= maxTurns) {
+            gameOver = true;
             logGameEvent("Maximum turns reached. Game over.");
+            printFinalStatistics();
+            logGameSummaryToFile();
         }
-        
-        printFinalStatistics();
-        logGameSummaryToFile();
     }
 
+    /**
+     * Ajanın hareketini işler ve gerekli güncellemeleri yapar.
+     * @param agent Hareket edecek ajan
+     */
     private void processAgentAction(Agent agent) {
         // Get current position
         int currentX = agent.getCurrentX();
@@ -123,9 +169,6 @@ public class GameController {
         // Determine next move (this would be replaced with actual agent AI/input)
         String direction = determineNextMove(agent);
         
-        // Log the attempted move
-        logGameEvent("Agent " + agent.getId() + " attempting to move " + direction);
-        
         // Try to move the agent
         agent.move(direction);
         
@@ -135,13 +178,13 @@ public class GameController {
             mazeManager.updateAgentLocation(agent, currentX, currentY);
             
             // Log the successful move
+            logGameEvent("\nTurn " + turnManager.getCurrentRound() + " begins");
+            logGameEvent("Agent " + agent.getId() + "'s turn");
             logGameEvent("Agent " + agent.getId() + " moved to position (" + 
                         agent.getCurrentX() + "," + agent.getCurrentY() + ")");
             
             // Print maze after successful move
-            logGameEvent("\nCurrent Maze State:");
             mazeManager.printMazeSnapshot();
-            logGameEvent(""); // Add empty line for better readability
             
             // Check if agent reached goal
             if (mazeManager.isGoalTile(agent.getCurrentX(), agent.getCurrentY())) {
@@ -151,6 +194,11 @@ public class GameController {
         }
     }
 
+    /**
+     * Ajanın bir sonraki hamlesini belirler.
+     * @param agent Hamle yapacak ajan
+     * @return Hamle yönü ("UP", "DOWN", "LEFT", "RIGHT")
+     */
     private String determineNextMove(Agent agent) {
         // This is a simple implementation - you might want to implement more sophisticated movement logic
         // For now, it just moves randomly
@@ -158,6 +206,11 @@ public class GameController {
         return directions[(int) (Math.random() * 4)];
     }
 
+    /**
+     * Ajanın bulunduğu karenin etkisini kontrol eder.
+     * Tuzak ve güç artırıcı etkilerini uygular.
+     * @param agent Etkiyi alacak ajan
+     */
     private void checkTileEffect(Agent agent) {
         int x = agent.getCurrentX();
         int y = agent.getCurrentY();
@@ -174,6 +227,14 @@ public class GameController {
         }
     }
 
+    /**
+     * Oyun sonu istatistiklerini yazdırır.
+     * Her ajan için:
+     * - Toplam hamle sayısı
+     * - Geri adım sayısı
+     * - Kullanılan güç artırıcı sayısı
+     * - Hedefe ulaşma durumu
+     */
     public void printFinalStatistics() {
         System.out.println("\n=== Final Statistics ===");
         System.out.println("Total turns played: " + turnManager.getCurrentRound());
@@ -188,12 +249,19 @@ public class GameController {
         }
     }
 
+    /**
+     * Oyun olaylarını loglar ve ekrana yazdırır.
+     * @param event Loglanacak olay
+     */
     private void logGameEvent(String event) {
         String logEntry = event + "\n";
         gameLog.append(logEntry);
         System.out.print(logEntry);
     }
 
+    /**
+     * Oyun loglarını dosyaya kaydeder.
+     */
     public void logGameSummaryToFile() {
         try (PrintWriter writer = new PrintWriter(new FileWriter(logFileName))) {
             writer.write(gameLog.toString());
@@ -201,5 +269,45 @@ public class GameController {
         } catch (IOException e) {
             System.err.println("Error writing to log file: " + e.getMessage());
         }
+    }
+
+    /**
+     * Labirent ızgarasını döndürür.
+     * @return Labirent ızgarası
+     */
+    public MazeTile[][] getMazeGrid() {
+        return mazeManager.getGrid();
+    }
+
+    /**
+     * Mevcut tur sayısını döndürür.
+     * @return Tur sayısı
+     */
+    public int getCurrentTurn() {
+        return turnManager.getCurrentRound();
+    }
+
+    /**
+     * Kalan ajan sayısını döndürür.
+     * @return Kalan ajan sayısı
+     */
+    public int getRemainingAgents() {
+        return turnManager.getRemainingAgents();
+    }
+
+    /**
+     * Labirent yöneticisini döndürür.
+     * @return MazeManager nesnesi
+     */
+    public MazeManager getMazeManager() {
+        return mazeManager;
+    }
+
+    /**
+     * Mevcut ajanı döndürür.
+     * @return Sıradaki ajan
+     */
+    public Agent getCurrentAgent() {
+        return turnManager.getCurrentAgent();
     }
 } 

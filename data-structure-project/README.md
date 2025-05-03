@@ -1,18 +1,81 @@
-## Getting Started
+# Labirent Oyunu Simülasyonu
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Bu proje, ajanların bir labirent içinde hareket ettiği ve hedeflerine ulaşmaya çalıştığı bir simülasyon oyunudur.
 
-## Folder Structure
+## Özellikler
 
-The workspace contains two folders by default, where:
+- Dinamik labirent oluşturma
+- Çoklu ajan desteği
+- Dönen koridorlar
+- Güç artırıcılar ve tuzaklar
+- Grafiksel kullanıcı arayüzü
+- Detaylı oyun istatistikleri
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Oyun Mekanikleri
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Labirent
+- Rastgele oluşturulan labirent yapısı
+- Duvarlar, tuzaklar ve güç artırıcılar
+- Belirli satırların dönme özelliği
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+### Ajanlar
+- Her ajanın benzersiz kimlik numarası
+- Konum ve hareket geçmişi takibi
+- Güç artırıcı kullanabilme yeteneği
+- Hedefe ulaşma durumu kontrolü
 
-## Dependency Management
+### Oyun Akışı
+1. Oyun başlangıcında labirent boyutları ve ajan sayısı belirlenir
+2. Her turda bir ajan hareket eder
+3. Ajanlar sırayla hareket eder
+4. Güç artırıcılar bir kez kullanılabilir
+5. Tuzaklara düşen ajanlar geri adım atar
+6. Oyun tüm ajanlar hedefe ulaştığında veya maksimum tur sayısına ulaşıldığında biter
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+## Kurulum
+
+1. Projeyi klonlayın:
+```bash
+git clone [proje-url]
+```
+
+2. Projeyi derleyin:
+```bash
+javac src/*.java
+```
+
+3. Oyunu çalıştırın:
+```bash
+java -cp src Main
+```
+
+## Kullanım
+
+1. Oyun başladığında aşağıdaki parametreleri girin:
+   - Labirent genişliği (5-20)
+   - Labirent yüksekliği (5-20)
+   - Ajan sayısı (1-5)
+   - Tuzak sıklığı (1-10)
+   - Güç artırıcı sıklığı (1-10)
+   - Maksimum tur sayısı (50-500)
+
+2. Grafiksel arayüz üzerinden:
+   - "Start" butonu ile oyunu başlatın
+   - "Pause" butonu ile oyunu duraklatın
+   - Sağ panelden tur sayısı ve kalan ajan sayısını takip edin
+
+## Sınıf Yapısı
+
+- `Main`: Programın giriş noktası
+- `GameController`: Oyun mantığını yönetir
+- `GameGUI`: Grafiksel kullanıcı arayüzünü oluşturur
+- `MazeManager`: Labirent yapısını ve dönüşümlerini yönetir
+- `Agent`: Ajan davranışlarını ve özelliklerini tanımlar
+- `TurnManager`: Tur sistemini ve ajan sırasını yönetir
+- `CircularLinkedList`: Dairesel bağlı liste veri yapısı
+- `Stack`: Yığın veri yapısı
+
+## Geliştirici
+
+- Hasan Akgün
+- Hasan Kılınç

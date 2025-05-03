@@ -1,6 +1,18 @@
 import java.util.Random;
 import java.util.Stack;
 
+/**
+ * Labirent Yönetici Sınıfı
+ * 
+ * Bu sınıf, labirent oyununun temel mantığını ve labirent yapısını yönetir.
+ * Labirentin oluşturulması, döndürülmesi ve ajanların hareketlerinin kontrolü bu sınıfta gerçekleşir.
+ * 
+ * Özellikler:
+ * - Labirent oluşturma ve yönetme
+ * - Satır döndürme mekanizması
+ * - Ajan hareketlerini kontrol etme
+ * - Güç artırıcı ve tuzak yönetimi
+ */
 public class MazeManager {
 
   private static MazeTile[][] grid;
@@ -17,6 +29,24 @@ public class MazeManager {
 
   private boolean[][] visited;
 
+  private int rotatingRow; // Dönen satırın indeksi
+
+  private int rows;                         // Satır sayısı
+  private int cols;                         // Sütun sayısı
+  private int selectedRow;                  // Seçili satır
+  private boolean isRotating;               // Döndürme durumu
+  private int rotationDirection;            // Döndürme yönü
+  private int rotationCount;                // Döndürme sayacı
+  private static final int ROTATION_STEPS = 3; // Döndürme adım sayısı
+
+  /**
+   * MazeManager sınıfının yapıcı metodu.
+   * @param width Satır sayısı
+   * @param height Sütun sayısı
+   * @param trapNum Tuzak sayısı
+   * @param powerUpNum Güç artırıcı sayısı
+   * @param a Ajan dizisi
+   */
   public MazeManager(int width, int height, int trapNum, int powerUpNum, Agent[] a) {
     this.width = width;
     this.height = height;
@@ -31,8 +61,15 @@ public class MazeManager {
     }
     this.rotatingRows = new CircularLinkedList<>();
     this.rowsTiles = new CircularLinkedList<>();
+    
+    // Rastgele bir satır seç (1 ile height-2 arasında)
+    this.rotatingRow = rand.nextInt(1, height-1);
+    System.out.println("Selected rotating row: " + rotatingRow);
   }
 
+  /**
+   * Labirenti oluşturur ve başlangıç durumunu ayarlar.
+   */
   public void generateMaze() {
     // Önce tüm labirenti duvarlarla doldur
     for (int x = 0; x < width; x++) {
@@ -43,7 +80,7 @@ public class MazeManager {
     }
 
     // Recursive Backtracking ile labirent oluştur
-    Stack<int[]> stack = new Stack<>();
+    Stack stack = new Stack();
     int startX = 1;
     int startY = 1;
     stack.push(new int[]{startX, startY});
@@ -53,7 +90,7 @@ public class MazeManager {
     int[][] directions = {{0, 2}, {2, 0}, {0, -2}, {-2, 0}}; // Sağ, Aşağı, Sol, Yukarı
 
     while (!stack.isEmpty()) {
-      int[] current = stack.peek();
+      int[] current = (int[]) stack.peek();
       int x = current[0];
       int y = current[1];
 
@@ -160,31 +197,36 @@ public class MazeManager {
       }
   }
 
-  public void rotateCorridor(int rowId){
+  public void rotateCorridor(int rowId) {
+    // Sadece seçili satır dönebilir
+    if (rowId != rotatingRow) {
+      return;
+    }
+
     int size = agents.getSize();
     Agent a;
     int agentY, agentX;
 
-    createRowCorridor(rowId); // Create a corridor in the row id
+    createRowCorridor(rowId);
     MazeTile lastTile = rowsTiles.removeLast();
-    rowsTiles.addFirst(lastTile); // Rotate the corridor by moving the last tile to the front
+    rowsTiles.addFirst(lastTile);
 
-    for(int x=1; x<width-1; x++){
-      MazeTile currentTile = rowsTiles.removeFirst(); // Remove the first tile from the corridor
-      grid[x][rowId] = currentTile; // Update the maze grid with the rotated tile
+    for(int x=1; x<width-1; x++) {
+      MazeTile currentTile = rowsTiles.removeFirst();
+      grid[x][rowId] = currentTile;
     }
 
     // Rotate if any agent is in the corridor
-    for(int i=0; i<size; i++){
+    for(int i=0; i<size; i++) {
       a = agents.getByIndex(i);
       agentY = a.getCurrentY();
       agentX = a.getCurrentX();
 
-      if(agentY == rowId && agentX < width-2){
+      if(agentY == rowId && agentX < width-2) {
         a.setCurrentX(agentX+1);
       }
-      else if(agentY == rowId && agentX == width-2){
-        a.setCurrentX(1); // Move the agent to the first column of the corridor
+      else if(agentY == rowId && agentX == width-2) {
+        a.setCurrentX(1);
       }
     }
   }
@@ -200,57 +242,33 @@ public class MazeManager {
     
   
 
-  public static boolean isValidMove(int fromX, int fromY, String direction){
-    int destinationX, destinationY;
-    switch (direction) {
-      case "UP":
-        destinationX = fromX;
-        destinationY = fromY + 1;
-        break;
-      case "DOWN":
-        destinationX = fromX;
-        destinationY = fromY - 1;
-        break;
-      case "LEFT":
-        destinationX = fromX - 1;
-        destinationY = fromY;
-        break;
-      case "RIGHT":
-        destinationX = fromX + 1;
-        destinationY = fromY;
-        break;
-      default:
-        return false; // Invalid direction
-    }
-
-    MazeTile destinationTile = getTile(destinationX, destinationY);
-    return destinationTile.isTraversable();
-
-    
-  }
-
+  /**
+   * Belirtilen konumdaki hücrenin tipini döndürür.
+   * @param x X koordinatı
+   * @param y Y koordinatı
+   * @return Hücre tipi
+   */
   public static MazeTile getTile(int x, int y) {
     return grid[x][y];
   }
 
-  public static void updateAgentLocation(Agent a, int oldX, int oldY){
-
+  public static void updateAgentLocation(Agent a, int oldX, int oldY) {
     MazeTile oldTile = getTile(oldX, oldY);
     MazeTile newTile;
 
     int agentX = a.getCurrentX();
     int agentY = a.getCurrentY();
 
-    newTile = getTile(agentX, agentY); // Get the new tile where the agent is moving
+    newTile = getTile(agentX, agentY);
 
-    oldTile.setHasAgent(false); // Remove the agent from the old tile
-    newTile.setHasAgent(true); // Set the agent in the new tile
+    oldTile.setHasAgent(false);
+    newTile.setHasAgent(true);
 
-    if(newTile.getType() == 'P'){
-      a.setHasPowerUp(true); // Set the agent's powerup status to true
-      newTile.setType('E'); // Change the tile type to empty after collecting the powerup
+    if (newTile.getType() == 'P' && !a.isPowerUpUsed()) {
+      a.setHasPowerUp(true);
+      newTile.setType('E');
+      System.out.println("Agent " + a.getId() + " picked up a power-up!");
     }
-    
   }
 
   public void printMazeSnapshot(){
@@ -284,5 +302,88 @@ public class MazeManager {
 
   public boolean isPowerUpTile(int x, int y) {
     return getTile(x, y).getType() == 'P';
+  }
+
+  /**
+   * Labirent ızgarasını döndürür.
+   * @return Labirent ızgarası
+   */
+  public MazeTile[][] getGrid() {
+    return grid;
+  }
+
+  /**
+   * Seçili satır numarasını döndürür.
+   * @return Seçili satır numarası
+   */
+  public int getRotatingRow() {
+    return rotatingRow;
+  }
+
+  /**
+   * Döndürme durumunu döndürür.
+   * @return Döndürme durumu
+   */
+  public boolean isRotating() {
+    return isRotating;
+  }
+
+  /**
+   * Döndürme yönünü döndürür.
+   * @return Döndürme yönü
+   */
+  public int getRotationDirection() {
+    return rotationDirection;
+  }
+
+  /**
+   * Döndürme sayacını döndürür.
+   * @return Döndürme sayacı
+   */
+  public int getRotationCount() {
+    return rotationCount;
+  }
+
+  /**
+   * Belirtilen konumdan belirtilen yöne doğru hareketin geçerli olup olmadığını kontrol eder.
+   * @param fromX Başlangıç X koordinatı
+   * @param fromY Başlangıç Y koordinatı
+   * @param direction Hareket yönü ("UP", "DOWN", "LEFT", "RIGHT")
+   * @return Hareketin geçerliliği
+   */
+  public static boolean isValidMove(int fromX, int fromY, String direction) {
+    int destinationX, destinationY;
+    
+    // Hedef koordinatları belirle
+    switch (direction) {
+      case "UP":
+        destinationX = fromX;
+        destinationY = fromY + 1;
+        break;
+      case "DOWN":
+        destinationX = fromX;
+        destinationY = fromY - 1;
+        break;
+      case "LEFT":
+        destinationX = fromX - 1;
+        destinationY = fromY;
+        break;
+      case "RIGHT":
+        destinationX = fromX + 1;
+        destinationY = fromY;
+        break;
+      default:
+        return false; // Geçersiz yön
+    }
+
+    // Hedef konumun labirent sınırları içinde olup olmadığını kontrol et
+    if (destinationX < 0 || destinationX >= grid.length || 
+        destinationY < 0 || destinationY >= grid[0].length) {
+      return false;
+    }
+
+    // Hedef konumdaki hücrenin geçilebilir olup olmadığını kontrol et
+    MazeTile destinationTile = getTile(destinationX, destinationY);
+    return destinationTile != null && destinationTile.isTraversable();
   }
 }

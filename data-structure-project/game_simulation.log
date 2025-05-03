@@ -1,303 +1,284 @@
-Game initialized with 2 agents in a 20x20 maze
+Game initialized with 2 agents in a 10x10 maze
 Trap frequency: 2, Power-up frequency: 2
 
+Turn 0 begins
+Agent 0's turn
+Agent 0 moved to position (1,7)
+Rotating corridor at row 6
+
+Turn 0 begins
+Agent 1's turn
+Agent 1 moved to position (3,4)
+Rotating corridor at row 6
+
 Turn 1 begins
-Corridor at row 12 rotated
-Agent 0 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
+
+Turn 1 begins
+Agent 1's turn
+Agent 1 moved to position (3,3)
+Rotating corridor at row 6
 
 Turn 2 begins
-Corridor at row 19 rotated
-Agent 0 attempting to move LEFT
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
+
+Turn 2 begins
+Agent 1's turn
+Agent 1 moved to position (3,4)
+Rotating corridor at row 6
 
 Turn 3 begins
-Corridor at row 2 rotated
-Agent 0 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
+
+Turn 3 begins
+Agent 1's turn
+Agent 1 moved to position (3,3)
+Rotating corridor at row 6
 
 Turn 4 begins
-Corridor at row 10 rotated
-Agent 0 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (1,7)
+Rotating corridor at row 6
+
+Turn 4 begins
+Agent 1's turn
+Agent 1 moved to position (2,3)
+Rotating corridor at row 6
 
 Turn 5 begins
-Corridor at row 17 rotated
-Agent 0 attempting to move UP
-Agent 0 moved to position (11,9)
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
-Current Maze State:
-
+Turn 5 begins
+Agent 1's turn
+Agent 1 moved to position (1,3)
+Agent 1 reached the goal!
+Rotating corridor at row 6
 
 Turn 6 begins
-Corridor at row 0 rotated
-Agent 1 attempting to move DOWN
-Agent 1 moved to position (7,5)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 7 begins
-Corridor at row 6 rotated
-Agent 0 attempting to move DOWN
-Agent 0 moved to position (11,8)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
 Turn 8 begins
-Corridor at row 0 rotated
-Agent 1 attempting to move DOWN
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 9 begins
-Corridor at row 7 rotated
-Agent 1 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
 Turn 10 begins
-Corridor at row 3 rotated
-Agent 1 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 11 begins
-Corridor at row 1 rotated
-Agent 1 attempting to move DOWN
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
 Turn 12 begins
-Corridor at row 5 rotated
-Agent 1 attempting to move DOWN
+Agent 0's turn
+Agent 0 moved to position (1,7)
+Rotating corridor at row 6
 
 Turn 13 begins
-Corridor at row 0 rotated
-Agent 1 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
 Turn 14 begins
-Corridor at row 18 rotated
-Agent 1 attempting to move LEFT
-Agent 1 moved to position (7,5)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 15 begins
-Corridor at row 14 rotated
-Agent 0 attempting to move UP
-Agent 0 moved to position (11,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 16 begins
-Corridor at row 17 rotated
-Agent 1 attempting to move LEFT
-Agent 1 moved to position (6,5)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 17 begins
-Corridor at row 1 rotated
-Agent 0 attempting to move LEFT
-Agent 0 moved to position (10,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 18 begins
-Corridor at row 5 rotated
-Agent 1 attempting to move RIGHT
-Agent 1 moved to position (8,5)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 19 begins
-Corridor at row 16 rotated
-Agent 0 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 20 begins
-Corridor at row 15 rotated
-Agent 0 attempting to move RIGHT
-Agent 0 moved to position (11,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (7,7)
+Rotating corridor at row 6
 
 Turn 21 begins
-Corridor at row 12 rotated
-Agent 1 attempting to move DOWN
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 22 begins
-Corridor at row 15 rotated
-Agent 1 attempting to move RIGHT
-Agent 1 moved to position (9,5)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (7,7)
+Rotating corridor at row 6
 
 Turn 23 begins
-Corridor at row 16 rotated
-Agent 0 attempting to move LEFT
-Agent 0 moved to position (10,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 24 begins
-Corridor at row 12 rotated
-Agent 1 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (7,7)
+Rotating corridor at row 6
 
 Turn 25 begins
-Corridor at row 10 rotated
-Agent 1 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 26 begins
-Corridor at row 3 rotated
-Agent 1 attempting to move DOWN
-Agent 1 moved to position (9,4)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 27 begins
-Corridor at row 4 rotated
-Agent 0 attempting to move RIGHT
-Agent 0 moved to position (11,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 28 begins
-Corridor at row 1 rotated
-Agent 1 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 29 begins
-Corridor at row 9 rotated
-Agent 1 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 30 begins
-Corridor at row 4 rotated
-Agent 1 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 31 begins
-Corridor at row 17 rotated
-Agent 1 attempting to move UP
-Agent 1 moved to position (11,5)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 32 begins
-Corridor at row 17 rotated
-Agent 0 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 33 begins
-Corridor at row 0 rotated
-Agent 0 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 34 begins
-Corridor at row 6 rotated
-Agent 0 attempting to move RIGHT
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 35 begins
-Corridor at row 13 rotated
-Agent 0 attempting to move LEFT
-Agent 0 moved to position (11,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 36 begins
-Corridor at row 17 rotated
-Agent 1 attempting to move UP
-Agent 1 moved to position (11,6)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 37 begins
-Corridor at row 12 rotated
-Agent 0 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 38 begins
-Corridor at row 7 rotated
-Agent 0 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 39 begins
-Corridor at row 8 rotated
-Agent 0 attempting to move LEFT
-Agent 0 moved to position (10,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 40 begins
-Corridor at row 0 rotated
-Agent 1 attempting to move LEFT
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 41 begins
-Corridor at row 18 rotated
-Agent 1 attempting to move UP
-Agent 1 moved to position (11,7)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (6,7)
+Rotating corridor at row 6
 
 Turn 42 begins
-Corridor at row 10 rotated
-Agent 0 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (5,7)
+Rotating corridor at row 6
 
 Turn 43 begins
-Corridor at row 13 rotated
-Agent 0 attempting to move RIGHT
-Agent 0 moved to position (11,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 
 Turn 44 begins
-Corridor at row 0 rotated
-Agent 1 attempting to move UP
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 45 begins
-Corridor at row 8 rotated
-Agent 1 attempting to move LEFT
-Agent 1 moved to position (10,7)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
 Turn 46 begins
-Corridor at row 14 rotated
-Agent 0 attempting to move LEFT
-Agent 0 moved to position (10,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 47 begins
-Corridor at row 2 rotated
-Agent 1 attempting to move LEFT
-Agent 1 moved to position (9,7)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (2,7)
+Rotating corridor at row 6
 
 Turn 48 begins
-Corridor at row 1 rotated
-Agent 0 attempting to move RIGHT
-Agent 0 moved to position (11,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (3,7)
+Rotating corridor at row 6
 
 Turn 49 begins
-Corridor at row 12 rotated
-Agent 1 attempting to move RIGHT
-Agent 1 moved to position (10,7)
-
-Current Maze State:
-
-
-Turn 50 begins
-Corridor at row 1 rotated
-Agent 0 attempting to move LEFT
-Agent 0 moved to position (10,9)
-
-Current Maze State:
-
+Agent 0's turn
+Agent 0 moved to position (4,7)
+Rotating corridor at row 6
 Maximum turns reached. Game over.
